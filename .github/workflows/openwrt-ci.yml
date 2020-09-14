@@ -111,7 +111,6 @@ jobs:
 #          file_glob: true
         
       - name: Upload to webdav
-        if: env.VERSION != env.Version && success()
         env:
           WEBDAV_USERNAME: ${{secrets.WEBDAV_USERNAME}}
           WEBDAV_PASSWORD: ${{secrets.WEBDAV_PASSWORD}}
