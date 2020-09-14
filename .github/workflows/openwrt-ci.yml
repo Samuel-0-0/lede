@@ -8,8 +8,8 @@
 name: OpenWrt-CI
 
 on:
-  schedule:
-    - cron: 0 20 * * *
+  #schedule:
+  #  - cron: 0 20 * * *
   #release:
   #  types: [published]
   push:
@@ -109,18 +109,13 @@ jobs:
 #          file: ./artifact/firmware/*
 #          tag: ${{ github.ref }}
 #          file_glob: true
-
-      - name: Send mail
-        uses: dawidd6/action-send-mail@v2
-        with:
-          server_address: smtp.163.com
-          server_port: 465
-          username: ${{secrets.MAIL_USERNAME}}
-          password: ${{secrets.MAIL_PASSWORD}}
-          subject: Github Actions job result
-          body: Build job of ${{github.repository}} completed successfully! Commits：https://github.com/Samuel-0-0/lede/commits/master
-          to: 529300529@qq.com
-          from: GitHub Actions
-          content_type: text/html
-          attachments: ./artifact/firmware/*
-
+        
+      - name: Upload to webdav
+        if: env.VERSION != env.Version && success()
+        env:
+          WEBDAV_USERNAME: ${{secrets.WEBDAV_USERNAME}}
+          WEBDAV_PASSWORD: ${{secrets.WEBDAV_PASSWORD}}
+          WEBDAV_URL: ${{secrets.WEBDAV_URL}}
+        run:
+          curl --upload-file "./artifact/firmware/OpenWrt_firmware.zip" --user "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" "$WEBDAV_URL/"
+          
