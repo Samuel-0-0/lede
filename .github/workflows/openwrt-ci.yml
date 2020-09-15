@@ -79,7 +79,9 @@ jobs:
           mkdir -p ./artifact/package
           mkdir -p ./artifact/buildinfo
           rm -rf $(find ./bin/targets/ -type d -name "packages")
+          find ./bin/targets/ -type f
           cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
+          find ./bin/packages/ -type f -name "*.ipk"
           cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
           cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
 
@@ -116,5 +118,5 @@ jobs:
           WEBDAV_PASSWORD: ${{secrets.WEBDAV_PASSWORD}}
           WEBDAV_URL: ${{secrets.WEBDAV_URL}}
         run:
-          curl --upload-file "./artifact/firmware/OpenWrt_firmware.zip" --user "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" "$WEBDAV_URL/"
+          curl --upload-file "./bin/targets/" --user "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" "$WEBDAV_URL/"
           
