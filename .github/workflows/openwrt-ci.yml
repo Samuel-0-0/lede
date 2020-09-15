@@ -117,6 +117,6 @@ jobs:
           WEBDAV_USERNAME: ${{secrets.WEBDAV_USERNAME}}
           WEBDAV_PASSWORD: ${{secrets.WEBDAV_PASSWORD}}
           WEBDAV_URL: ${{secrets.WEBDAV_URL}}
-        run:
-          curl --upload-file "./bin/targets/" --user "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" "$WEBDAV_URL/"
-          
+        run: |
+          curl --upload-file "./bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img" --user "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" "$WEBDAV_URL/"
+          curl --upload-file "./bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img" --user "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" "$WEBDAV_URL/"
