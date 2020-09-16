@@ -120,3 +120,4 @@ jobs:
         run: |
           curl --upload-file "./bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img" --user "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" "$WEBDAV_URL/"
           curl --upload-file "./bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img" --user "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" "$WEBDAV_URL/"
+
